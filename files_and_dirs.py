@@ -1,6 +1,7 @@
 import os
 from urllib.parse import urlparse, unquote
 import requests
+from PIL import Image
 
 
 def get_file_ext(url: str) -> str:
@@ -17,3 +18,9 @@ def download_image(url: str, target_path: str):
     with open(target_path, "wb") as file:
         file.write(image_responce.content)
     print("Image downloaded:", url)
+
+
+def resize_image(image_file: str, long_side: int = 2048):
+    image = Image.open(image_file)
+    image.thumbnail((long_side, long_side))
+    image.save(image_file)
