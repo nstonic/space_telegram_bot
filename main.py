@@ -33,7 +33,27 @@ def fetch_nasa_apod():
         try:
             ext = get_file_ext(link)
             download_image(url=link,
-                           target_path=f"images/nasa-{index:0>4d}{ext}")
+                           target_path=f"images/nasa-apod-{index:0>4d}{ext}")
+        except:
+            continue
+
+
+def fetch_nasa_epic():
+    """
+        EPIC is the Earth Polychromatic Imaging Camera
+    """
+    load_dotenv()
+    nasa_api_key = os.getenv("NASA_API_KEY")
+    try:
+        nasa_epic_links = get_nasa_epic_links(nasa_api_key)
+    except:
+        return
+
+    for index, link in enumerate(nasa_epic_links):
+        try:
+            ext = get_file_ext(link)
+            download_image(url=link,
+                           target_path=f"images/nasa-epic-{index:0>4d}{ext}")
         except:
             continue
 
@@ -41,6 +61,7 @@ def fetch_nasa_apod():
 def main():
     fetch_nasa_apod()
     fetch_spacex_last_launch()
+    fetch_nasa_epic()
 
 
 if __name__ == '__main__':
