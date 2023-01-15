@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 from api import *
 from files_and_dirs import *
 
@@ -11,10 +10,12 @@ def fetch_spacex_last_launch():
         return
 
     for index, link in enumerate(latest_launch_links):
-        print(link)
-        ext = get_file_ext(link)
-        download_image(url=link,
-                       target_path=f"images/spacex-{index}.{ext}")
+        try:
+            ext = get_file_ext(link)
+            download_image(url=link, target_path=f"images/spacex-{index:0>4d}.{ext}")
+            print("Image downloaded: ", link)
+        except:
+            continue
 
 
 def fetch_nasa_apod():
@@ -29,10 +30,13 @@ def fetch_nasa_apod():
         return
 
     for index, link in enumerate(nasa_apod_links):
-        print(link)
-        ext = get_file_ext(link)
-        download_image(url=link,
-                       target_path=f"images/nasa-{index}.{ext}")
+        try:
+            ext = get_file_ext(link)
+            download_image(url=link,
+                           target_path=f"images/nasa-{index:0>4d}.{ext}")
+            print("Image downloaded: ", link)
+        except:
+            continue
 
 
 def main():
