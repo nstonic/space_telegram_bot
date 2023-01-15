@@ -25,7 +25,7 @@ def fetch_spacex_images(launch_id: str = None):
         return
 
     if not len(launch_links):
-        print("К этому запускку нет фотографий.")
+        print("К этому запуску нет фотографий.")
         return
 
     for index, link in enumerate(launch_links):
