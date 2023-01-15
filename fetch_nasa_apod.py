@@ -7,9 +7,8 @@ from files_and_dirs import get_file_ext, download_image
 
 def get_nasa_apod_links(image_count) -> list[str]:
     load_dotenv()
-    nasa_api_key = os.getenv("NASA_API_KEY")
     params = {
-        "api_key": nasa_api_key,
+        "api_key": os.getenv("NASA_API_KEY"),
         "count": image_count
     }
 
@@ -23,7 +22,7 @@ def get_nasa_apod_links(image_count) -> list[str]:
     return links
 
 
-def fetch_nasa_apod(image_count: int = 50):
+def fetch_nasa_apod(image_count: int = 1):
     """
         APOD is the Astronomy Picture of the Day
     """
@@ -47,7 +46,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--count",
                         type=int,
-                        help="Количество загружаемых фотографий. По умолчанию 50")
+                        help="Количество загружаемых фотографий. По умолчанию 1")
     args = parser.parse_args()
     if image_count := args.count:
         fetch_nasa_apod(image_count)
