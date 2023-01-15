@@ -13,7 +13,7 @@ def fetch_spacex_last_launch():
         try:
             ext = get_file_ext(link)
             download_image(url=link,
-                           target_path=f"images/spacex-{index:0>4d}.{ext}")
+                           target_path=f"images/spacex-{index:0>4d}{ext}")
         except:
             continue
 
@@ -33,7 +33,7 @@ def fetch_nasa_apod():
         try:
             ext = get_file_ext(link)
             download_image(url=link,
-                           target_path=f"images/nasa-{index:0>4d}.{ext}")
+                           target_path=f"images/nasa-{index:0>4d}{ext}")
         except:
             continue
 
