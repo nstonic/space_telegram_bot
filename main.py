@@ -31,8 +31,7 @@ def main():
             fetch_nasa_apod(10)
             fetch_nasa_epic(10)
             images = os.listdir("images")
-            image_file_path = f"images/{random.choice(images)}"
-            publish_photo(image_file_path)
+            publish_photo(f"images/{random.choice(images)}")
 
             if os.getenv('DELAY_SECONDS'):
                 delay = int(os.getenv('DELAY_SECONDS'))
