@@ -27,11 +27,12 @@ def fetch_nasa_apod(image_count: int = 50):
     """
         APOD is the Astronomy Picture of the Day
     """
-    try:
-        nasa_apod_links = get_nasa_apod_links(image_count)
-    except Exception as ex:
-        print(ex)
-        return
+    nasa_apod_links = get_nasa_apod_links(image_count)
+    # try:
+    #     nasa_apod_links = get_nasa_apod_links(image_count)
+    # except Exception as ex:
+    #     print(ex)
+    #     return
 
     for index, link in enumerate(nasa_apod_links):
         try:
@@ -48,5 +49,7 @@ if __name__ == '__main__':
                         type=int,
                         help="Количество загружаемых фотографий. По умолчанию 50")
     args = parser.parse_args()
-    image_count = args.count
-    fetch_nasa_apod(image_count)
+    if image_count := args.count:
+        fetch_nasa_apod(image_count)
+    else:
+        fetch_nasa_apod()

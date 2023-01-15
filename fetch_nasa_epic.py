@@ -49,5 +49,7 @@ if __name__ == '__main__':
                         type=int,
                         help="Количество загружаемых фотографий. По умолчанию 50")
     args = parser.parse_args()
-    image_count = args.count
-    fetch_nasa_epic(image_count)
+    if image_count := args.count:
+        fetch_nasa_epic(image_count)
+    else:
+        fetch_nasa_epic()
