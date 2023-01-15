@@ -16,3 +16,4 @@ def download_image(url: str, target_path: str):
     image_responce.raise_for_status()
     with open(target_path, "wb") as file:
         file.write(image_responce.content)
+    print("Image downloaded:", url)
