@@ -38,10 +38,14 @@ def fetch_spacex_images(launch_id: str = None):
             continue
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--id",
                         help="id запуска. Если не указан, то загружается последний запуск")
     args = parser.parse_args()
     launch_id = args.id
     fetch_spacex_images(launch_id)
+
+
+if __name__ == '__main__':
+    main()

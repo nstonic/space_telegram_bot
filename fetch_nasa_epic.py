@@ -42,7 +42,7 @@ def fetch_nasa_epic(image_count: int = 1):
             continue
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--count",
                         type=int,
@@ -52,3 +52,7 @@ if __name__ == '__main__':
         fetch_nasa_epic(image_count)
     else:
         fetch_nasa_epic()
+
+
+if __name__ == '__main__':
+    main()
