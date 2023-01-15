@@ -1,21 +1,7 @@
 from dotenv import load_dotenv
 from api import *
 from files_and_dirs import *
-
-
-def fetch_spacex_last_launch():
-    try:
-        latest_launch_links = get_links_from_spacex()
-    except:
-        return
-
-    for index, link in enumerate(latest_launch_links):
-        try:
-            ext = get_file_ext(link)
-            download_image(url=link,
-                           target_path=f"images/spacex-{index:0>4d}{ext}")
-        except:
-            continue
+from fetch_spacex_images import fetch_spacex_images
 
 
 def fetch_nasa_apod():
@@ -60,7 +46,7 @@ def fetch_nasa_epic():
 
 def main():
     fetch_nasa_apod()
-    fetch_spacex_last_launch()
+    fetch_spacex_images()
     fetch_nasa_epic()
 
 
