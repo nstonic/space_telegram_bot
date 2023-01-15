@@ -21,7 +21,8 @@ def get_links_from_spacex(launch_id) -> list[str]:
 def fetch_spacex_images(launch_id: str = None):
     try:
         launch_links = get_links_from_spacex(launch_id)
-    except:
+    except Exception as ex:
+        print(ex)
         return
 
     if not len(launch_links):
