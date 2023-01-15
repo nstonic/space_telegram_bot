@@ -12,7 +12,8 @@ def fetch_spacex_last_launch():
     for index, link in enumerate(latest_launch_links):
         try:
             ext = get_file_ext(link)
-            download_image(url=link, target_path=f"images/spacex-{index:0>4d}.{ext}")
+            download_image(url=link,
+                           target_path=f"images/spacex-{index:0>4d}.{ext}")
             print("Image downloaded: ", link)
         except:
             continue
