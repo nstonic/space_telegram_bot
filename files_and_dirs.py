@@ -13,10 +13,10 @@ def get_file_ext(url: str) -> str:
 def download_image(url: str, target_path: str):
     if not os.path.isdir("images"):
         os.mkdir("images")
-    image_responce = requests.get(url)
-    image_responce.raise_for_status()
+    image_response = requests.get(url)
+    image_response.raise_for_status()
     with open(target_path, "wb") as file:
-        file.write(image_responce.content)
+        file.write(image_response.content)
     print("Image downloaded:", url)
 
 
