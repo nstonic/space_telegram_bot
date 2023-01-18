@@ -38,7 +38,7 @@ def fetch_nasa_epic(image_count: int = 1):
         try:
             ext = get_file_ext(link)
             download_image(url=link,
-                           target_path=f"images/nasa-epic-{index:0>4d}{ext}")
+                           target_path=os.path.join("images", f"nasa-epic-{index:0>4d}{ext}"))
         except requests.exceptions.HTTPError as ex:
             print(ex)
             continue

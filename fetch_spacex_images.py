@@ -33,7 +33,7 @@ def fetch_spacex_images(launch_id: str = None):
         try:
             ext = get_file_ext(link)
             download_image(url=link,
-                           target_path=f"images/spacex-{index:0>4d}{ext}")
+                           target_path=os.path.join("images", f"spacex-{index:0>4d}{ext}"))
         except requests.exceptions.HTTPError as ex:
             print(ex)
             continue
