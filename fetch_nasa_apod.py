@@ -12,11 +12,11 @@ def get_nasa_apod_links(image_count) -> list[str]:
         "count": image_count
     }
 
-    nasa_apod_responce = requests.get("https://api.nasa.gov/planetary/apod",
+    nasa_apod_response = requests.get("https://api.nasa.gov/planetary/apod",
                                       params=params)
-    nasa_apod_responce.raise_for_status()
+    nasa_apod_response.raise_for_status()
     links = []
-    for apod in nasa_apod_responce.json():
+    for apod in nasa_apod_response.json():
         if link := apod.get("hdurl"):
             links.append(link)
     return links
@@ -27,11 +27,6 @@ def fetch_nasa_apod(image_count: int = 1):
         APOD is the Astronomy Picture of the Day
     """
     nasa_apod_links = get_nasa_apod_links(image_count)
-    # try:
-    #     nasa_apod_links = get_nasa_apod_links(image_count)
-    # except Exception as ex:
-    #     print(ex)
-    #     return
 
     for index, link in enumerate(nasa_apod_links):
         try:

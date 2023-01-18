@@ -9,13 +9,13 @@ def get_links_from_spacex(launch_id) -> list[str]:
     if launch_id:
         params = {"id": launch_id}
         latest = ""
-    spacex_launch_responce = requests.get(f"https://api.spacexdata.com/v5/launches/{latest}", params=params)
-    spacex_launch_responce.raise_for_status()
+    spacex_launch_response = requests.get(f"https://api.spacexdata.com/v5/launches/{latest}", params=params)
+    spacex_launch_response.raise_for_status()
     if launch_id:
-        for launch in spacex_launch_responce.json():
+        for launch in spacex_launch_response.json():
             if launch["id"] == launch_id:
                 return launch["links"]["flickr"]["original"]
-    return spacex_launch_responce.json()["links"]["flickr"]["original"]
+    return spacex_launch_response.json()["links"]["flickr"]["original"]
 
 
 def fetch_spacex_images(launch_id: str = None):

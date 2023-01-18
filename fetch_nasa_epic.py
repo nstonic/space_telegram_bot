@@ -12,10 +12,10 @@ def get_nasa_epic_links(image_count: int) -> list[str]:
         "count": image_count
     }
 
-    nasa_epic_responce = requests.get("https://api.nasa.gov/EPIC/api/natural/images",
+    nasa_epic_response = requests.get("https://api.nasa.gov/EPIC/api/natural/images",
                                       params=params)
     links = []
-    for image in nasa_epic_responce.json():
+    for image in nasa_epic_response.json():
         image_date = image["date"].split()[0].replace("-", "/")
         image_name = image["image"]
         links.append(f"https://epic.gsfc.nasa.gov/archive/natural/{image_date}/jpg/{image_name}.jpg")
