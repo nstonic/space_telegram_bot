@@ -13,7 +13,7 @@ from files_and_dirs import resize_image
 def publish_photo(image_file_path: str):
     load_dotenv()
     resize_image(image_file_path)
-    bot = telegram.Bot(token=os.getenv('TELEGRAM_BOT_API'))
+    bot = telegram.Bot(token=os.environ['TELEGRAM_BOT_API'])
     bot.send_photo(chat_id="@nstonic_SpacePhotos", photo=open(image_file_path, "rb"))
 
 
