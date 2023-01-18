@@ -8,7 +8,7 @@ from files_and_dirs import get_file_ext, download_image
 def get_nasa_apod_links(image_count) -> list[str]:
     load_dotenv()
     params = {
-        "api_key": os.getenv("NASA_API_KEY"),
+        "api_key": os.environ["NASA_API_KEY"],
         "count": image_count
     }
 
@@ -26,14 +26,20 @@ def fetch_nasa_apod(image_count: int = 1):
     """
         APOD is the Astronomy Picture of the Day
     """
-    nasa_apod_links = get_nasa_apod_links(image_count)
+
+    try:
+        nasa_apod_links = get_nasa_apod_links(image_count)
+    except requests.exceptions.HTTPError as ex:
+        print(ex)
+        return
 
     for index, link in enumerate(nasa_apod_links):
         try:
             ext = get_file_ext(link)
             download_image(url=link,
                            target_path=f"images/nasa-apod-{index:0>4d}{ext}")
-        except:
+        except requests.exceptions.HTTPError as ex:
+            print(ex)
             continue
 
 

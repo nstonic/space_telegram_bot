@@ -8,12 +8,13 @@ from files_and_dirs import get_file_ext, download_image
 def get_nasa_epic_links(image_count: int) -> list[str]:
     load_dotenv()
     params = {
-        "api_key": os.getenv("NASA_API_KEY"),
+        "api_key": os.environ["NASA_API_KEY"],
         "count": image_count
     }
 
     nasa_epic_response = requests.get("https://api.nasa.gov/EPIC/api/natural/images",
                                       params=params)
+    nasa_epic_response.raise_for_status()
     links = []
     for image in nasa_epic_response.json():
         image_date = image["date"].split()[0].replace("-", "/")
@@ -29,7 +30,7 @@ def fetch_nasa_epic(image_count: int = 1):
 
     try:
         nasa_epic_links = get_nasa_epic_links(image_count)
-    except Exception as ex:
+    except requests.exceptions.HTTPError as ex:
         print(ex)
         return
 
@@ -38,7 +39,8 @@ def fetch_nasa_epic(image_count: int = 1):
             ext = get_file_ext(link)
             download_image(url=link,
                            target_path=f"images/nasa-epic-{index:0>4d}{ext}")
-        except:
+        except requests.exceptions.HTTPError as ex:
+            print(ex)
             continue
 
 

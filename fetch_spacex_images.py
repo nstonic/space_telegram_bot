@@ -21,7 +21,7 @@ def get_links_from_spacex(launch_id) -> list[str]:
 def fetch_spacex_images(launch_id: str = None):
     try:
         launch_links = get_links_from_spacex(launch_id)
-    except Exception as ex:
+    except requests.exceptions.HTTPError as ex:
         print(ex)
         return
 
@@ -34,7 +34,8 @@ def fetch_spacex_images(launch_id: str = None):
             ext = get_file_ext(link)
             download_image(url=link,
                            target_path=f"images/spacex-{index:0>4d}{ext}")
-        except:
+        except requests.exceptions.HTTPError as ex:
+            print(ex)
             continue
 
 
