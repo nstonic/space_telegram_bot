@@ -33,8 +33,8 @@ def main():
             images = os.listdir("images")
             publish_photo(f"images/{random.choice(images)}")
 
-            if os.getenv('DELAY_SECONDS'):
-                delay = int(os.getenv('DELAY_SECONDS'))
+            if os.environ['DELAY_SECONDS']:
+                delay = int(os.environ['DELAY_SECONDS'])
             else:
                 delay = 14400
 
