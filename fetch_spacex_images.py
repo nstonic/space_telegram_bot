@@ -1,17 +1,16 @@
+import os
+from pprint import pprint
+
 import requests
 from files_and_dirs import get_file_ext, download_image
 import argparse
 
 
 def get_links_from_spacex(launch_id) -> list[str]:
-    params = {}
-    latest = "latest"
-    if launch_id:
-        params = {"id": launch_id}
-        latest = ""
-    spacex_launch_response = requests.get(f"https://api.spacexdata.com/v5/launches/{latest}", params=params)
+    launch = f"{launch_id}" if launch_id else "latest"
+    spacex_launch_response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch}")
     spacex_launch_response.raise_for_status()
-    if launch_id:
+    if launch_id and isinstance(spacex_launch_response.json(), list):
         for launch in spacex_launch_response.json():
             if launch["id"] == launch_id:
                 return launch["links"]["flickr"]["original"]
@@ -42,10 +41,10 @@ def fetch_spacex_images(launch_id: str = None):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--id",
-                        help="id запуска. Если не указан, то загружается последний запуск")
+                        dest="launch_id",
+                        help="ID запуска. Если не указан, то загружается последний запуск")
     args = parser.parse_args()
-    launch_id = args.id
-    fetch_spacex_images(launch_id)
+    fetch_spacex_images(args.launch_id)
 
 
 if __name__ == '__main__':
