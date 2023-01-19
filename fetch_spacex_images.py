@@ -1,13 +1,11 @@
 import os
-from pprint import pprint
-
 import requests
 from files_and_dirs import get_file_ext, download_image
 import argparse
 
 
 def get_links_from_spacex(launch_id) -> list[str]:
-    launch = f"{launch_id}" if launch_id else "latest"
+    launch = launch_id or "latest"
     spacex_launch_response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch}")
     spacex_launch_response.raise_for_status()
     if launch_id and isinstance(spacex_launch_response.json(), list):

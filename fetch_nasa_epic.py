@@ -5,10 +5,9 @@ from dotenv import load_dotenv
 from files_and_dirs import get_file_ext, download_image
 
 
-def get_nasa_epic_links(image_count: int) -> list[str]:
-    load_dotenv()
+def get_nasa_epic_links(image_count: int, api_key: str) -> list[str]:
     params = {
-        "api_key": os.environ["NASA_API_KEY"],
+        "api_key": api_key,
         "count": image_count
     }
 
@@ -23,13 +22,13 @@ def get_nasa_epic_links(image_count: int) -> list[str]:
     return links
 
 
-def fetch_nasa_epic(image_count: int):
+def fetch_nasa_epic(image_count: int, api_key: str):
     """
         EPIC is the Earth Polychromatic Imaging Camera
     """
 
     try:
-        nasa_epic_links = get_nasa_epic_links(image_count)
+        nasa_epic_links = get_nasa_epic_links(image_count, api_key)
     except requests.exceptions.HTTPError as ex:
         print(ex)
         return
@@ -50,7 +49,9 @@ def main():
                         type=int,
                         help="Количество загружаемых фотографий. По умолчанию 1")
     args = parser.parse_args()
-    fetch_nasa_epic(args.count or 1)
+    load_dotenv()
+    nasa_api_key = os.environ["NASA_API_KEY"]
+    fetch_nasa_epic(image_count=args.count or 1, api_key=nasa_api_key)
 
 
 if __name__ == '__main__':

@@ -5,10 +5,9 @@ from dotenv import load_dotenv
 from files_and_dirs import get_file_ext, download_image
 
 
-def get_nasa_apod_links(image_count) -> list[str]:
-    load_dotenv()
+def get_nasa_apod_links(image_count: int, api_key: str) -> list[str]:
     params = {
-        "api_key": os.environ["NASA_API_KEY"],
+        "api_key": api_key,
         "count": image_count
     }
 
@@ -22,13 +21,13 @@ def get_nasa_apod_links(image_count) -> list[str]:
     return links
 
 
-def fetch_nasa_apod(image_count: int):
+def fetch_nasa_apod(image_count: int, api_key: str):
     """
         APOD is the Astronomy Picture of the Day
     """
 
     try:
-        nasa_apod_links = get_nasa_apod_links(image_count)
+        nasa_apod_links = get_nasa_apod_links(image_count, api_key)
     except requests.exceptions.HTTPError as ex:
         print(ex)
         return
@@ -49,7 +48,9 @@ def main():
                         type=int,
                         help="Количество загружаемых фотографий. По умолчанию 1")
     args = parser.parse_args()
-    fetch_nasa_apod(args.count or 1)
+    load_dotenv()
+    nasa_api_key = os.environ["NASA_API_KEY"]
+    fetch_nasa_apod(image_count=args.count or 1, api_key=nasa_api_key)
 
 
 if __name__ == '__main__':
