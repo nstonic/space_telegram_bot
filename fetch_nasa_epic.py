@@ -1,4 +1,5 @@
 import argparse
+from datetime import datetime
 import os
 import requests
 from dotenv import load_dotenv
@@ -16,9 +17,9 @@ def get_nasa_epic_links(image_count: int, api_key: str) -> list[str]:
     nasa_epic_response.raise_for_status()
     links = []
     for image in nasa_epic_response.json():
-        image_date = image["date"].split()[0].replace("-", "/")
+        image_date = datetime.fromisoformat(image["date"])
         image_name = image["image"]
-        links.append(f"https://epic.gsfc.nasa.gov/archive/natural/{image_date}/jpg/{image_name}.jpg")
+        links.append(f"https://epic.gsfc.nasa.gov/archive/natural/{image_date.strftime('%Y/%m/%d')}/jpg/{image_name}.jpg")
     return links
 
 
