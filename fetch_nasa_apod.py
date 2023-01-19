@@ -22,7 +22,7 @@ def get_nasa_apod_links(image_count) -> list[str]:
     return links
 
 
-def fetch_nasa_apod(image_count: int = 1):
+def fetch_nasa_apod(image_count: int):
     """
         APOD is the Astronomy Picture of the Day
     """
@@ -37,7 +37,7 @@ def fetch_nasa_apod(image_count: int = 1):
         try:
             ext = get_file_ext(link)
             download_image(url=link,
-                           target_path=f"images/nasa-apod-{index:0>4d}{ext}")
+                           target_path=os.path.join("images", f"nasa-apod-{index:0>4d}{ext}"))
         except requests.exceptions.HTTPError as ex:
             print(ex)
             continue
@@ -49,10 +49,7 @@ def main():
                         type=int,
                         help="Количество загружаемых фотографий. По умолчанию 1")
     args = parser.parse_args()
-    if image_count := args.count:
-        fetch_nasa_apod(image_count)
-    else:
-        fetch_nasa_apod()
+    fetch_nasa_apod(args.count or 1)
 
 
 if __name__ == '__main__':

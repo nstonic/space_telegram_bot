@@ -23,7 +23,7 @@ def get_nasa_epic_links(image_count: int) -> list[str]:
     return links
 
 
-def fetch_nasa_epic(image_count: int = 1):
+def fetch_nasa_epic(image_count: int):
     """
         EPIC is the Earth Polychromatic Imaging Camera
     """
@@ -50,10 +50,7 @@ def main():
                         type=int,
                         help="Количество загружаемых фотографий. По умолчанию 1")
     args = parser.parse_args()
-    if image_count := args.count:
-        fetch_nasa_epic(image_count)
-    else:
-        fetch_nasa_epic()
+    fetch_nasa_epic(args.count or 1)
 
 
 if __name__ == '__main__':

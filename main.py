@@ -32,12 +32,7 @@ def main():
             fetch_nasa_epic(10)
             images = os.listdir("images")
             publish_photo(f"images/{random.choice(images)}")
-
-            if os.environ['DELAY_SECONDS']:
-                delay = int(os.environ['DELAY_SECONDS'])
-            else:
-                delay = 14400
-
+            delay = int(os.environ['DELAY_SECONDS']) or 14400
             time.sleep(delay)
 
 
