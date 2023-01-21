@@ -8,13 +8,13 @@ from files_and_dirs import get_file_ext, download_image
 
 def get_links_from_spacex(launch_id) -> list[str]:
     launch = launch_id
-    spacex_launch_response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch}")
-    spacex_launch_response.raise_for_status()
-    if launch_id and isinstance(spacex_launch_response.json(), list):
-        for launch in spacex_launch_response.json():
+    response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch}")
+    response.raise_for_status()
+    if launch_id and isinstance(response.json(), list):
+        for launch in response.json():
             if launch["id"] == launch_id:
                 return launch["links"]["flickr"]["original"]
-    return spacex_launch_response.json()["links"]["flickr"]["original"]
+    return response.json()["links"]["flickr"]["original"]
 
 
 def fetch_spacex_images(launch_id: str = None):
