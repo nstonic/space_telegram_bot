@@ -1,12 +1,14 @@
-import argparse
 import os
 import random
 import time
+
+import argparse
+import telegram
+from dotenv import load_dotenv
+
 from fetch_nasa_apod import fetch_nasa_apod
 from fetch_nasa_epic import fetch_nasa_epic
 from fetch_spacex_images import fetch_spacex_images
-import telegram
-from dotenv import load_dotenv
 from files_and_dirs import resize_image
 
 
@@ -24,7 +26,7 @@ def main():
     args = parser.parse_args()
     load_dotenv()
     nasa_api_key = os.environ["NASA_API_KEY"]
-    chat_id = os.environ["CHAT_ID"]
+    chat_id = os.environ["TG_CHAT_ID"]
     telegram_bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
 
     fetch_spacex_images()
