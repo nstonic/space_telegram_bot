@@ -1,6 +1,7 @@
 import os
-from urllib.parse import urlparse, unquote
+
 import requests
+from urllib.parse import urlparse, unquote
 from PIL import Image
 
 

@@ -1,7 +1,9 @@
 import os
+
 import requests
-from files_and_dirs import get_file_ext, download_image
 import argparse
+
+from files_and_dirs import get_file_ext, download_image
 
 
 def get_links_from_spacex(launch_id) -> list[str]:

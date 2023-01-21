@@ -1,8 +1,10 @@
-import argparse
-from datetime import datetime
 import os
+from datetime import datetime
+
 import requests
+import argparse
 from dotenv import load_dotenv
+
 from files_and_dirs import get_file_ext, download_image
 
 
