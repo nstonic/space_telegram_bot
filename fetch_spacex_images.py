@@ -5,7 +5,7 @@ import argparse
 
 
 def get_links_from_spacex(launch_id) -> list[str]:
-    launch = launch_id or "latest"
+    launch = launch_id
     spacex_launch_response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch}")
     spacex_launch_response.raise_for_status()
     if launch_id and isinstance(spacex_launch_response.json(), list):
@@ -40,6 +40,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--id",
                         dest="launch_id",
+                        default="latest",
                         help="ID запуска. Если не указан, то загружается последний запуск")
     args = parser.parse_args()
     fetch_spacex_images(args.launch_id)

@@ -46,11 +46,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--count",
                         type=int,
+                        default=1,
                         help="Количество загружаемых фотографий. По умолчанию 1")
     args = parser.parse_args()
     load_dotenv()
     nasa_api_key = os.environ["NASA_API_KEY"]
-    fetch_nasa_apod(image_count=args.count or 1, api_key=nasa_api_key)
+    fetch_nasa_apod(image_count=args.count, api_key=nasa_api_key)
 
 
 if __name__ == '__main__':
