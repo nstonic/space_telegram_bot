@@ -30,7 +30,11 @@ def main():
     else:
         while True:
             images = os.listdir("images")
-            publish_photo(os.path.join("images", f"{random.choice(images)}"), telegram_bot_token, chat_id)
+            try:
+                publish_photo(os.path.join("images", f"{random.choice(images)}"), telegram_bot_token, chat_id)
+            except telegram.error.NetworkError:
+                time.sleep(10)
+                continue
             delay = int(os.getenv('DELAY_SECONDS', default=14400))
             time.sleep(delay)
 
