@@ -25,13 +25,8 @@ def main():
                         help="Путь к файлу с фотографией")
     args = parser.parse_args()
     load_dotenv()
-    nasa_api_key = os.environ["NASA_API_KEY"]
     chat_id = os.environ["TG_CHAT_ID"]
     telegram_bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
-
-    fetch_spacex_images()
-    fetch_nasa_apod(image_count=10, api_key=nasa_api_key)
-    fetch_nasa_epic(image_count=10, api_key=nasa_api_key)
 
     if image_file_path := args.image:
         publish_photo(image_file_path, telegram_bot_token, chat_id)
