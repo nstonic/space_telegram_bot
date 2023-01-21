@@ -37,7 +37,7 @@ def main():
         while True:
             images = os.listdir("images")
             publish_photo(os.path.join("images", f"{random.choice(images)}"), telegram_bot_token, chat_id)
-            delay = int(os.environ['DELAY_SECONDS']) or 14400
+            delay = int(os.getenv('DELAY_SECONDS', default=14400))
             time.sleep(delay)
 
 
