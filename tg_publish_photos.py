@@ -6,9 +6,6 @@ import argparse
 import telegram
 from dotenv import load_dotenv
 
-from fetch_nasa_apod import fetch_nasa_apod
-from fetch_nasa_epic import fetch_nasa_epic
-from fetch_spacex_images import fetch_spacex_images
 from files_and_dirs import resize_image
 
 
