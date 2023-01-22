@@ -6,18 +6,13 @@ import argparse
 from files_and_dirs import get_file_ext, download_image
 
 
-def get_links_from_spacex(launch_id) -> list[str]:
-    launch = launch_id
-    response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch}")
+def get_links_from_spacex(launch_id: str) -> list[str]:
+    response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch_id}")
     response.raise_for_status()
-    if launch_id and isinstance(response.json(), list):
-        for launch in response.json():
-            if launch["id"] == launch_id:
-                return launch["links"]["flickr"]["original"]
     return response.json()["links"]["flickr"]["original"]
 
 
-def fetch_spacex_images(launch_id: str = None):
+def fetch_spacex_images(launch_id: str):
     try:
         launch_links = get_links_from_spacex(launch_id)
     except requests.exceptions.HTTPError as ex:
