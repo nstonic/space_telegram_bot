@@ -31,7 +31,7 @@ def main():
         while True:
             images = os.listdir("images")
             try:
-                publish_photo(os.path.join("images", f"{random.choice(images)}"), telegram_bot_token, chat_id)
+                publish_photo(os.path.join("images", random.choice(images)), telegram_bot_token, chat_id)
             except (telegram.error.NetworkError, telegram.error.TimedOut):
                 time.sleep(10)
                 continue
