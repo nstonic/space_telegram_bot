@@ -13,13 +13,9 @@ def get_nasa_apod_links(image_count: int, api_key: str) -> list[str]:
         "count": image_count
     }
 
-    response = requests.get("https://api.nasa.gov/planetary/apod",
-                                      params=params)
+    response = requests.get("https://api.nasa.gov/planetary/apod", params=params)
     response.raise_for_status()
-    links = []
-    for apod in response.json():
-        if link := apod.get("hdurl"):
-            links.append(link)
+    links = [apod.get("hdurl") for apod in response.json() if apod.get("hdurl")]
     return links
 
 
