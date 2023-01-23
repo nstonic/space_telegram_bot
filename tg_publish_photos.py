@@ -24,6 +24,7 @@ def main():
     load_dotenv()
     chat_id = os.environ["TG_CHAT_ID"]
     telegram_bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
+    delay = int(os.getenv('DELAY_SECONDS', default=14400))
 
     if image_file_path := args.image:
         publish_photo(image_file_path, telegram_bot_token, chat_id)
@@ -38,8 +39,6 @@ def main():
             except telegram.error.RetryAfter as ex:
                 time.sleep(ex.retry_after)
                 continue
-
-            delay = int(os.getenv('DELAY_SECONDS', default=14400))
             time.sleep(delay)
 
 
